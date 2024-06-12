@@ -12,20 +12,53 @@ document.addEventListener("DOMContentLoaded", () => {
       toyFormContainer.style.display = "none";
     }
   });
+
+
+  fetch("http://localhost:3000/toys")
+    .then(response => response.json())
+    .then(data => {
+      const toyCollection = document.getElementById("toy-collection");
+      data.forEach(toy => {
+       
+    })
+    .catch(error => {
+      console.log("Error:", error);
+    });
+
 });
+})
 
-function fetchToys(toys){
-  const toyCollection = document.querySelector(".toy-collection")
-  const header = document.createElement("h2")
-  const image = document.createElement("img")
-  const likes = document.createElement("p")
-  const button = document.createElement("button")
-  
-  header.textContent = toys.name
-  image.src = toys.image
-  likes.textContent = toys.likes
-  button.textContent = "Like <3"
 
-  toyCollection.appendChild(header, image, likes, button)
+
+const fetchToys = () => {
+
 }
 
+const createToy = (toy) => {
+
+}
+
+const submitForm = (submit) => {
+    submit.preventDefault()
+    let toy = {
+      name: submit.target.name.value,
+      image: submit.target.image.value,
+      likes: 0
+    }
+    addWithObj(toy)
+}
+
+//if bool == true, then we edit the likes, if not, we edit everything
+const addWithObj = (toyObj) => {
+  fetch("http://localhost:3000/toys",{
+        method:"POST",
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({toys:toyObj})
+  })
+
+  .then(r => r.json())
+  .then(data => {
+    console.log("added the data to the thing")
+    createToy(toy)
+  })
+}
