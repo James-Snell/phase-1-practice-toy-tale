@@ -12,4 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
       toyFormContainer.style.display = "none";
     }
   });
+
+
+  fetch("http://localhost:3000/toys")
+    .then(response => response.json())
+    .then(data => {
+      const toyCollection = document.getElementById("toy-collection");
+      data.forEach(toy => {
+       
+    })
+    .catch(error => {
+      console.log("Error:", error);
+    });
+
 });
